@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import logoSrc from "../../assets/images/logo.png";
 import generacDealerBadge from "../../assets/images/generac-authorized-dealer.webp";
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import { NAVY, NAV_LINKS, PHONE_DISPLAY, PHONE_HREF, EMAIL } from "../lib/constants";
 
 export default function SiteFooter() {
@@ -29,7 +29,6 @@ export default function SiteFooter() {
               {[
                 { icon: <Facebook className="w-4 h-4" />, label: "Facebook", url: "https://www.facebook.com/LightUpGenerators" },
                 { icon: <Instagram className="w-4 h-4" />, label: "Instagram", url: "https://www.instagram.com/lightupgenerators/" },
-                { icon: <Youtube className="w-4 h-4" />, label: "YouTube", url: "#" },
               ].map((s) => (
                 <a
                   key={s.label}

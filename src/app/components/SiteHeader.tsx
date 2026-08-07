@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import logoSrc from "../../assets/images/logo.png";
-import { Phone, Mail, Menu, X, ChevronDown, Facebook, Instagram, Youtube } from "lucide-react";
+import { Phone, Mail, Menu, X, ChevronDown, Facebook, Instagram } from "lucide-react";
 import { NAVY, TEAL, NAV_LINKS, PHONE_DISPLAY, PHONE_HREF, EMAIL } from "../lib/constants";
 import { GENERATOR_CATEGORIES } from "../data/generators";
 import { SERVICE_REGIONS } from "../data/serviceAreas";
@@ -67,7 +67,6 @@ export default function SiteHeader() {
           <div className="flex items-center gap-4">
             <a href="https://www.facebook.com/LightUpGenerators" target="_blank" rel="noreferrer" aria-label="Facebook" className="text-white/60 hover:text-white transition-colors"><Facebook className="w-3.5 h-3.5" /></a>
             <a href="https://www.instagram.com/lightupgenerators/" target="_blank" rel="noreferrer" aria-label="Instagram" className="text-white/60 hover:text-white transition-colors"><Instagram className="w-3.5 h-3.5" /></a>
-            <a href="#" aria-label="YouTube" className="text-white/60 hover:text-white transition-colors"><Youtube className="w-3.5 h-3.5" /></a>
           </div>
         </div>
       </div>

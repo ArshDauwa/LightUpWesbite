@@ -23,7 +23,6 @@ import {
   Percent,
   Facebook,
   Instagram,
-  Youtube,
 } from "lucide-react";
 import { NAVY, TEAL, GREEN, HF, BF, PHONE_HREF, PHONE_DISPLAY, EMAIL } from "../lib/constants";
 import { GENERATOR_CATEGORIES } from "../data/generators";
@@ -640,7 +639,6 @@ export default function HomePage() {
                 {[
                   { icon: <Facebook className="w-4 h-4" />, label: "Facebook" },
                   { icon: <Instagram className="w-4 h-4" />, label: "Instagram" },
-                  { icon: <Youtube className="w-4 h-4" />, label: "YouTube" },
                 ].map((s) => (
                   <a
                     key={s.label}
