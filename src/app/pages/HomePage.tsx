@@ -125,8 +125,7 @@ export default function HomePage() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const formspreeFormId = import.meta.env.VITE_FORMSPREE_FORM_ID as string | undefined;
-  const formspreeUrl = formspreeFormId ? `https://formspree.io/f/${formspreeFormId}` : null;
+  const staticFormsAccessKey = import.meta.env.VITE_STATICFORMS_ACCESS_KEY as string | undefined;
 
   useEffect(() => {
     const state = location.state as { scrollTo?: string; presetCity?: string } | null;
@@ -159,33 +158,35 @@ export default function HomePage() {
     setError(null);
     setSending(true);
 
-    if (!formspreeUrl) {
-      setError("Contact form is not configured. Add VITE_FORMSPREE_FORM_ID to your build environment.");
+    if (!staticFormsAccessKey) {
+      setError("Contact form is not configured. Add VITE_STATICFORMS_ACCESS_KEY to your build environment.");
       setSending(false);
       return;
     }
 
     try {
-      const response = await fetch(formspreeUrl, {
+      const response = await fetch("https://api.staticforms.xyz/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          accessKey: staticFormsAccessKey,
           name: form.name,
           email: form.email,
           phone: form.phone,
           service: form.service,
           message: form.message,
-          _subject: `Website contact request from ${form.name}`,
-          _replyto: form.email,
+          subject: `Website contact request from ${form.name}`,
+          replyTo: form.email,
+          honeypot: "",
         }),
       });
 
       const result = await response.json();
       if (!response.ok) {
-        throw new Error(result?.error || result?.message || `Request failed (${response.status})`);
+        throw new Error(result?.message || `Request failed (${response.status})`);
       }
 
       setSent(true);
