@@ -124,6 +124,8 @@ export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const state = location.state as { scrollTo?: string; presetCity?: string } | null;
@@ -151,9 +153,32 @@ export default function HomePage() {
     setZipResult(result.ok ? { ok: true, city: result.city } : { ok: false });
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setError(null);
+    setSending(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.error || "Unable to send message.");
+      }
+
+      setSent(true);
+      setForm({ name: "", email: "", phone: "", service: "", message: "" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to send message.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -727,12 +752,16 @@ export default function HomePage() {
                       onBlur={(e) => (e.target.style.borderColor = "")}
                     />
                   </div>
+                  {error ? (
+                    <p className="text-sm text-red-600 text-center">{error}</p>
+                  ) : null}
                   <button
                     type="submit"
-                    className="w-full font-bold text-sm text-white py-3.5 rounded flex items-center justify-center gap-2 transition-opacity hover:opacity-90 group"
+                    disabled={sending}
+                    className="w-full font-bold text-sm text-white py-3.5 rounded flex items-center justify-center gap-2 transition-opacity hover:opacity-90 group disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ backgroundColor: TEAL }}
                   >
-                    Send My Request
+                    {sending ? "Sending..." : "Send My Request"}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </button>
                   <p className="text-center text-xs text-muted-foreground">No obligation. We respond within one business day.</p>

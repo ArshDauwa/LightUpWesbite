@@ -73,7 +73,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <p>© {new Date().getFullYear()} Light Up Generators LLC. All rights reserved. Licensed & Insured · TX License #TX-0001234</p>
+          <p>© {new Date().getFullYear()} Light Up Generators LLC. All rights reserved. Licensed & Insured</p>
           <div className="flex gap-5">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
