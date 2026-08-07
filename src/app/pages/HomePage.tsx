@@ -166,9 +166,17 @@ export default function HomePage() {
         body: JSON.stringify(form),
       });
 
-      const result = await response.json();
+      const text = await response.text();
+      let result: any = null;
+      try {
+        result = JSON.parse(text);
+      } catch {
+        result = null;
+      }
+
       if (!response.ok) {
-        throw new Error(result?.error || "Unable to send message.");
+        const errorMessage = result?.error || text || `Request failed (${response.status})`;
+        throw new Error(errorMessage);
       }
 
       setSent(true);
