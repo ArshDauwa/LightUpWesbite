@@ -31,6 +31,7 @@ export type GeneratorCategory = {
   range: string;
   img: string;
   imgPosition: string;
+  cardImg?: string;
   desc: string;
   bullets: string[];
   models: GeneratorModel[];
@@ -47,6 +48,7 @@ export const SPEC_LABELS: Record<keyof GeneratorSpecs, string> = {
 };
 
 const RESIDENTIAL_IMG = residentialGeneratorImg;
+const RESIDENTIAL_CARD_IMG = residentialGeneratorImg;
 const COMMERCIAL_IMG = commercialGeneratorImg;
 const COMMERCIAL_IMG_COMPACT = commercialGeneratorCompactImg;
 const PORTABLE_IMG = portableGeneratorImg;
@@ -178,6 +180,7 @@ export const GENERATOR_CATEGORIES: GeneratorCategory[] = [
     range: "10kW – 28kW",
     img: RESIDENTIAL_IMG,
     imgPosition: "center",
+    cardImg: RESIDENTIAL_CARD_IMG,
     desc: "Whole-home automatic standby backup, powered by Generac. Kicks on within seconds of an outage — no manual start, no extension cords.",
     bullets: [
       "Automatic transfer switch included",

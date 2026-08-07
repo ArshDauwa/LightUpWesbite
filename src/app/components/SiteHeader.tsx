@@ -35,10 +35,18 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  const scrollToElement = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const headerHeight = 96;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  };
+
   const go = (id: string) => {
     setMenuOpen(false);
     if (location.pathname === "/") {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      scrollToElement(id);
     } else {
       navigate("/", { state: { scrollTo: id } });
     }

@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import { NAVY, TEAL, GREEN, HF, BF, PHONE_HREF, PHONE_DISPLAY, EMAIL } from "../lib/constants";
 import { GENERATOR_CATEGORIES } from "../data/generators";
-import { lookupServiceZip, getServiceCityById, type ServiceCity } from "../data/serviceAreas";
+import { lookupServiceZip, getServiceCityById, SERVICE_CITIES, type ServiceCity } from "../data/serviceAreas";
 
 // ── Data ────────────────────────────────────────────────────────────────────
 
@@ -138,13 +138,21 @@ export default function HomePage() {
     }
     if (state?.scrollTo) {
       requestAnimationFrame(() => {
-        document.getElementById(state.scrollTo!)?.scrollIntoView({ behavior: "smooth" });
+        const el = document.getElementById(state.scrollTo!);
+        if (!el) return;
+        const headerHeight = 96;
+        const top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
       });
     }
   }, [location.state]);
 
   const go = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (!el) return;
+    const headerHeight = 96;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
   };
 
   const checkZip = () => {
@@ -318,7 +326,7 @@ export default function HomePage() {
               >
                 <div className="relative aspect-square overflow-hidden bg-muted">
                   <img
-                    src={g.img}
+                    src={g.cardImg ?? g.img}
                     alt={g.label}
                     style={{ objectPosition: g.imgPosition }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85"
@@ -525,21 +533,17 @@ export default function HomePage() {
               )}
             </div>
 
-            <h3 className="font-bold text-foreground text-lg mb-5" style={{ fontFamily: HF }}>Counties We Serve</h3>
+            <h3 className="font-bold text-foreground text-lg mb-5" style={{ fontFamily: HF }}>Cities We Serve</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-y-3 gap-x-6 mb-6">
-              {[
-                "Harris", "Fort Bend", "Montgomery", "Brazoria",
-                "Galveston", "Waller", "Liberty", "Chambers",
-                "Jefferson", "Wharton",
-              ].map((c) => (
-                <div key={c} className="flex items-center gap-2 text-sm text-foreground/80">
+              {SERVICE_CITIES.map((city) => (
+                <div key={city.id} className="flex items-center gap-2 text-sm text-foreground/80">
                   <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: TEAL }} />
-                  {c} County
+                  {city.city}
                 </div>
               ))}
             </div>
             <p className="text-xs text-muted-foreground border-t border-border pt-4">
-              Expanding our service area. Contact us to verify coverage for a specific address outside these counties.
+              Expanding our service area. Contact us to verify coverage for a specific address outside these cities.
             </p>
           </div>
         </div>
