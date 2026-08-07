@@ -15,6 +15,6 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-service" element={<TermsOfServicePage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
