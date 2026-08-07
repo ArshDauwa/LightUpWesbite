@@ -2,6 +2,7 @@ import portableGeneratorImg from "../../assets/images/generator-portable.jpg";
 import commercialGeneratorImg from "../../assets/images/generator-commercial-standby.jpg";
 import commercialGeneratorCompactImg from "../../assets/images/generator-commercial-standby-compact.jpg";
 import residentialGeneratorImg from "../../assets/images/generator-residential-standby.jpg";
+import residentialCardImg from "../../assets/images/generator-residential-card.png";
 
 export type GeneratorSpecs = {
   output: string;
@@ -32,6 +33,8 @@ export type GeneratorCategory = {
   img: string;
   imgPosition: string;
   cardImg?: string;
+  cardImgPosition?: string;
+  cardImgScale?: number;
   desc: string;
   bullets: string[];
   models: GeneratorModel[];
@@ -48,7 +51,7 @@ export const SPEC_LABELS: Record<keyof GeneratorSpecs, string> = {
 };
 
 const RESIDENTIAL_IMG = residentialGeneratorImg;
-const RESIDENTIAL_CARD_IMG = residentialGeneratorImg;
+const RESIDENTIAL_CARD_IMG = residentialCardImg;
 const COMMERCIAL_IMG = commercialGeneratorImg;
 const COMMERCIAL_IMG_COMPACT = commercialGeneratorCompactImg;
 const PORTABLE_IMG = portableGeneratorImg;
@@ -181,6 +184,8 @@ export const GENERATOR_CATEGORIES: GeneratorCategory[] = [
     img: RESIDENTIAL_IMG,
     imgPosition: "center",
     cardImg: RESIDENTIAL_CARD_IMG,
+    cardImgPosition: "80% 20%",
+    cardImgScale: 1.14,
     desc: "Whole-home automatic standby backup, powered by Generac. Kicks on within seconds of an outage — no manual start, no extension cords.",
     bullets: [
       "Automatic transfer switch included",

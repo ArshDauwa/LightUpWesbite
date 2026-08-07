@@ -328,8 +328,11 @@ export default function HomePage() {
                   <img
                     src={g.cardImg ?? g.img}
                     alt={g.label}
-                    style={{ objectPosition: g.imgPosition }}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85"
+                    style={{
+                      objectPosition: g.cardImgPosition ?? g.imgPosition,
+                      transform: g.cardImgScale ? `scale(${g.cardImgScale})` : undefined,
+                    }}
+                    className="w-full h-full object-cover transition-transform duration-500 opacity-85"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
                   <span
