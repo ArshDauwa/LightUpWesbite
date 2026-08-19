@@ -35,13 +35,14 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
 
 function SiteMetadata() {
   const { pathname } = useLocation();
+  const normalizedPathname = pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
 
   useEffect(() => {
-    const metadata = PAGE_METADATA[pathname] || PAGE_METADATA["/"];
+    const metadata = PAGE_METADATA[normalizedPathname] || PAGE_METADATA["/"];
     document.title = metadata.title;
     document.querySelector('meta[name="description"]')?.setAttribute("content", metadata.description);
-    document.querySelector('link[rel="canonical"]')?.setAttribute("href", `https://lightupgenerators.com${pathname}`);
-  }, [pathname]);
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", `https://lightupgenerators.com${normalizedPathname}`);
+  }, [normalizedPathname]);
 
   return null;
 }
